@@ -1,5 +1,7 @@
 #include <httprequest/client.hpp>
 
+#include <iostream> <
+
 namespace httprequest {
 
 Client::Client() {}
@@ -10,7 +12,7 @@ Client::Client(std::shared_ptr<Channel> channel)
 void Client::json(Request req, Callback<nlohmann::json> fn) {
   auto reply = request(std::move(req));
   reply->on<FinishEvent>(
-      [reply](auto &, const auto &) { reply->deleteLater(); });
+      [reply](auto &, const auto &) { /* reply->deleteLater();*/ });
   reply->on<HeaderEvent>([](auto &, const auto &) {});
   reply->on<DataEvent>([](auto &, const auto &) {});
 }

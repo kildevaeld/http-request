@@ -12,7 +12,7 @@ using Method = httpxx_parser::Method;
 using json = nlohmann::json;
 
 using HeaderCallback = std::function<void(int status, Header &&header)>;
-using DataCallback = std::function<void(const unsigned *data, int size)>;
+using DataCallback = std::function<void(const unsigned char *data, int size)>;
 
 class Object {};
 
@@ -23,7 +23,7 @@ public:
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb) = 0;
 
-  virtual void deleteLater(Object *object) = 0;
+  virtual void deleteObject(Object *object) = 0;
 };
 
 } // namespace httprequest

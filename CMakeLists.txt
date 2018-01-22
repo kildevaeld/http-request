@@ -14,9 +14,14 @@ add_subdirectory(vendor/json)
 include_directories(vendor/httpxx-parser/include)
 add_subdirectory(vendor/httpxx-parser)
 
-## Libsigc
-#include_directories(vendor/libsigc++)
-#include_directories(${CMAKE_CURRENT_BINARY_DIR}/vendor/libsigc++)
-#add_subdirectory(vendor/libsigc++)
-
+## Httprequest
+include_directories(${PROJECT_ROOT}/include)
 add_subdirectory(src)
+
+## Qt channel
+find_package(Qt5Network)
+add_subdirectory(channels/qt)
+
+
+## Example
+add_subdirectory(example)

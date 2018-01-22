@@ -5,5 +5,5 @@ set(SOURCES
 )
 
 add_library(httprequest ${SOURCES})
-target_link_libraries(httprequest sigc++)
+target_link_libraries(httprequest httpxx_parser)
 target_include_directories(httprequest PUBLIC ${PROJECT_ROOT}/include)
