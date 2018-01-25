@@ -1,5 +1,6 @@
 {
-    "configurations": [{
+    "configurations": [
+        {
             "name": "Mac",
             "includePath": [
                 "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
@@ -10,7 +11,8 @@
                 "${workspaceRoot}",
                 "${workspaceRoot}/vendor/httpxx-parser/include",
                 "${workspaceRoot}/include",
-                "/usr/local/Cellar/libsigc++/2.10.0/include/sigc++-2.0"
+                "/usr/local/Cellar/libsigc++/2.10.0/include/sigc++-2.0",
+                "${workspaceRoot}/include/httprequest/channels"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",

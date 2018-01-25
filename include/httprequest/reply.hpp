@@ -22,12 +22,13 @@ struct HeaderEvent {
   Header header;
 };
 
-class Reply : public httpxx_parser::Emitter<Reply> {
+class Reply : public httpxx_parser::Emitter<Reply>, public Object {
 public:
 public:
   Reply(std::shared_ptr<Channel> channel);
+  virtual ~Reply();
 
-  // void deleteLater();
+   void deleteLater();
 
 private:
   friend class Client;

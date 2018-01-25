@@ -2,21 +2,18 @@
 
 namespace httprequest {
 
-Reply::Reply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb)
+QtReply::QtReply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb)
     : QObject(), m_reply(reply), m_hcb(std::move(hcb)), m_dcb(std::move(dcb)) {
 
-  connect(m_reply, &QNetworkReply::finished, this, &Reply::onFinished);
-  connect(m_reply, &QIODevice::readyRead, this, &Reply::onReadyRead);
+  connect(m_reply, &QNetworkReply::finished, this, &QtReply::onFinished);
+  connect(m_reply, &QIODevice::readyRead, this, &QtReply::onReadyRead);
 
-  // m_buffer.setBuffer(&m_bytes);
-  // m_buffer.open(QBuffer::ReadWrite);
 }
 
-void Reply::onReadyRead() {
+void QtReply::onReadyRead() {
   if (m_first_read) {
     Header h;
     for (auto a : m_reply->rawHeaderPairs()) {
-      qDebug() << a.first << a.second;
       h[a.first.toStdString()] = a.second.toStdString();
     }
     auto statusCode =
@@ -30,7 +27,7 @@ void Reply::onReadyRead() {
 
   m_dcb((const unsigned char *)buffer.data(), buffer.size());
 }
-void Reply::onFinished() {
+void QtReply::onFinished() {
 
   m_dcb(NULL, 0);
 

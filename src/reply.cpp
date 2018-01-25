@@ -5,6 +5,8 @@ namespace httprequest {
 Reply::Reply(std::shared_ptr<Channel> channel)
     : m_channel(std::move(channel)) {}
 
-// void Reply::deleteLater() { m_channel->deleteObject(this); }
+Reply::~Reply() {}
+
+ void Reply::deleteLater() { m_channel->deleteObject(this); }
 
 } // namespace httprequest

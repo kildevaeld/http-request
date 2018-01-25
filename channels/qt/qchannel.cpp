@@ -1,4 +1,4 @@
-#include "qchannel.hpp"
+#include <httprequest/channels/qchannel.hpp>
 #include "reply.hpp"
 #include <QDebug>
 #include <QNetworkAccessManager>
@@ -51,11 +51,11 @@ void QChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
     return;
   }
 
-  auto r = new Reply(reply, std::move(hcb), std::move(dcb));
-  connect(r, &Reply::finished, r, &Reply::deleteLater);
+  auto r = new QtReply(reply, std::move(hcb), std::move(dcb));
+  connect(r, &QtReply::finished, r, &QtReply::deleteLater);
 }
 
 void QChannel::deleteObject(Object *object) {
-  QTimer::singleShot(0, [object]() { delete object; });
+  QTimer::singleShot(1, [object]() { delete object; });
 }
 } // namespace httprequest

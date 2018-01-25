@@ -4,12 +4,12 @@
 
 namespace httprequest {
 
-class Reply : public QObject {
+class QtReply : public QObject {
 
   Q_OBJECT
 public:
-  Reply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb);
-  ~Reply() {}
+  QtReply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb);
+  ~QtReply() {}
 
 signals:
   void finished();

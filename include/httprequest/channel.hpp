@@ -14,7 +14,10 @@ using json = nlohmann::json;
 using HeaderCallback = std::function<void(int status, Header &&header)>;
 using DataCallback = std::function<void(const unsigned char *data, int size)>;
 
-class Object {};
+class Object {
+  public:
+    virtual ~Object() {}
+};
 
 class Channel {
 
