@@ -1,9 +1,9 @@
-#include <httprequest/channels/qchannel.hpp>
 #include "reply.hpp"
 #include <QDebug>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>
+#include <httprequest/channels/qchannel.hpp>
 
 namespace httprequest {
 
@@ -55,7 +55,7 @@ void QChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
   connect(r, &QtReply::finished, r, &QtReply::deleteLater);
 }
 
-void QChannel::deleteObject(Object *object) {
-  QTimer::singleShot(1, [object]() { delete object; });
+void QChannel::async(std::function<void(void *)> fn, void *data) {
+  QTimer::singleShot(0, [ data, fn = std::move(fn) ]() { fn(data); });
 }
 } // namespace httprequest

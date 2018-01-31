@@ -16,7 +16,7 @@ public:
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
 
-  virtual void deleteObject(Object *object);
+  virtual void async(std::function<void(void *)> fn, void *data);
 
 private:
   std::unique_ptr<internal::QChannelPrivate> d;

@@ -4,3 +4,6 @@
 [submodule "vendor/httpxx-parser"]
 	path = vendor/httpxx-parser
 	url = git@github.com:kildevaeld/httpxx-parser.git
+[submodule "vendor/uvhttp"]
+	path = vendor/uvhttp
+	url = git@github.com:kildevaeld/uvhttp

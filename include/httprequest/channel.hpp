@@ -15,8 +15,8 @@ using HeaderCallback = std::function<void(int status, Header &&header)>;
 using DataCallback = std::function<void(const unsigned char *data, int size)>;
 
 class Object {
-  public:
-    virtual ~Object() {}
+public:
+  virtual ~Object() {}
 };
 
 class Channel {
@@ -26,7 +26,7 @@ public:
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb) = 0;
 
-  virtual void deleteObject(Object *object) = 0;
+  virtual void async(std::function<void(void *)> fn, void *data) = 0;
 };
 
 } // namespace httprequest

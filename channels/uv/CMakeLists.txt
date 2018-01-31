@@ -1,5 +1,5 @@
 
-set(SOURCES uvchannel.cpp)
+set(SOURCES uvchannel.cpp request.cpp)
 
-add_library(httprequest_libuv ${SOURCES})
-target_link_libraries(httprequest uv)
+add_library(uvchannel ${SOURCES})
+target_link_libraries(uvchannel uvhttp uv)

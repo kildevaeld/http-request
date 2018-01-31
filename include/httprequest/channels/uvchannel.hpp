@@ -1,6 +1,6 @@
 #pragma once
-#include <QObject>
 #include <httprequest/channel.hpp>
+#include <uv.h>
 
 namespace httprequest {
 
@@ -9,14 +9,18 @@ class UVChannelPrivate;
 }
 
 class UVChannel : public Channel {
- 
+
 public:
-  UVChannel();
+  UVChannel(uv_loop_t *loop = uv_default_loop());
   virtual ~UVChannel();
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
 
-  virtual void deleteObject(Object *object);
+  uv_loop_t *loop() const;
+
+  virtual void async(std::function<void(void *)> fn, void *data);
+
+  // void deleteObject2(void *object);
 
 private:
   std::unique_ptr<internal::UVChannelPrivate> d;

@@ -22,6 +22,10 @@ add_subdirectory(src)
 find_package(Qt5Network)
 add_subdirectory(channels/qt)
 
+## Uv channel
+add_subdirectory(vendor/uvhttp)
+include_directories(vendor/uvhttp/include)
+add_subdirectory(channels/uv)
 
 ## Example
 add_subdirectory(example)
