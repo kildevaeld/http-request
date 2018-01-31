@@ -20,6 +20,7 @@ public:
 
   void json(Request req, Callback<nlohmann::json> fn);
 
+  void request(Request req, Callback<std::string> fn);
   Reply *request(Request req);
 
 private:

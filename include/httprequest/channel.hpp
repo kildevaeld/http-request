@@ -30,7 +30,7 @@ public:
     async([ fn = std::move(fn), data ](void *data) {
       T *c = static_cast<T *>(data);
       fn(c);
-    });
+    }, data);
   }
 
   virtual void async(std::function<void(void *)> fn, void *data) = 0;

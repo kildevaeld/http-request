@@ -16,6 +16,27 @@ void Client::json(Request req, Callback<nlohmann::json> fn) {
   reply->on<DataEvent>([](auto &, const auto &) {});
 }
 
+void Client::request(Request req, Callback<std::string> fn) {
+  auto resp = new Response<std::string>();
+  m_channel->request(
+      std::move(req),
+      [resp](auto status, const auto &&header) {
+        resp->header = header;
+        resp->status = status;
+      },
+
+      [ resp, fn = std::move(fn), this ](const auto data, auto size) {
+        if (data == NULL) {
+          fn(*resp);
+          m_channel->async<Response<std::string>>(
+              [](auto resp) { delete resp; }, resp);
+        } else {
+          resp->content.append((const char *)data, size);
+        }
+
+      });
+}
+
 Reply *Client::request(Request req) {
   Reply *reply = new Reply(m_channel);
   m_channel->request(std::move(req),
