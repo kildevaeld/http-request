@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR})
 
+option(EHTTP_QT_CHANNEL "build qt channel" off)
+option(EHTTP_UV_CHANNEL "build libuv channel" off)
+option(EHTTP_EXAMPLE "build examples" off)
+
 ## json
 option(JSON_BuildTests "Build the unit tests when BUILD_TESTING is enabled." OFF)
 include_directories(vendor/json/src)
@@ -18,14 +22,21 @@ add_subdirectory(vendor/httpxx-parser)
 include_directories(${PROJECT_ROOT}/include)
 add_subdirectory(src)
 
+
 ## Qt channel
-find_package(Qt5Network)
-add_subdirectory(channels/qt)
+if (EHTTP_QT_CHANNEL OR EHTTP_EXAMPLE)
+    find_package(Qt5Network)
+    add_subdirectory(channels/qt)
+endif(EHTTP_QT_CHANNEL OR EHTTP_EXAMPLE)
 
 ## Uv channel
-add_subdirectory(vendor/uvhttp)
-include_directories(vendor/uvhttp/include)
-add_subdirectory(channels/uv)
+if (EHTTP_UV_CHANNEL OR EHTTP_EXAMPLE)
+    add_subdirectory(vendor/uvhttp)
+    include_directories(vendor/uvhttp/include)
+    add_subdirectory(channels/uv)
+endif(EHTTP_UV_CHANNEL OR EHTTP_EXAMPLE)
 
 ## Example
-add_subdirectory(example)
+if (EHTTP_EXAMPLE)
+    add_subdirectory(example)
+endif(EHTTP_EXAMPLE)
