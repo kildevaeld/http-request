@@ -26,6 +26,13 @@ public:
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb) = 0;
 
+  template <typename T> void async(std::function<void(T *ptr)> fn, T *data) {
+    async([ fn = std::move(fn), data ](void *data) {
+      T *c = static_cast<T *>(data);
+      fn(c);
+    });
+  }
+
   virtual void async(std::function<void(void *)> fn, void *data) = 0;
 };
 

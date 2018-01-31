@@ -15,12 +15,9 @@ public:
   virtual ~UVChannel();
 
   virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
-
-  uv_loop_t *loop() const;
-
   virtual void async(std::function<void(void *)> fn, void *data);
 
-  // void deleteObject2(void *object);
+  uv_loop_t *loop() const;
 
 private:
   std::unique_ptr<internal::UVChannelPrivate> d;
