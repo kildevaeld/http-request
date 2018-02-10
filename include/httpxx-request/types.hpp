@@ -1,12 +1,12 @@
 #pragma once
-#include <httpxx-parser/request.hpp>
+#include <httpxx-types/request.hpp>
 #include <json.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
-using Request = httpxx_parser::Request;
-using Header = httpxx_parser::Header;
-using Method = httpxx_parser::Method;
+using Request = httpxx_types::Request;
+using Header = httpxx_types::Header;
+using Method = httpxx_types::Method;
 using json = nlohmann::json;
 
 using HeaderCallback = std::function<void(int status, Header &&header)>;

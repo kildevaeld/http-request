@@ -1,9 +1,9 @@
 #pragma once
 #include <cstring>
-#include <httprequest/iresponse-delegate.hpp>
+#include <httpxx-request/iresponse-delegate.hpp>
 #include <json.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 namespace serializers {
 

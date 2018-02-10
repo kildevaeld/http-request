@@ -1,8 +1,8 @@
 #pragma once
-#include <httprequest/channel.hpp>
+#include <httpxx-request/channel.hpp>
 #include <uvhttp/http.h>
 
-namespace httprequest {
+namespace httpxx_request {
 
 class UVRequest : public Object {
 

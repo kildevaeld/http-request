@@ -1,6 +1,6 @@
 #include "request.hpp"
 
-namespace httprequest {
+namespace httpxx_request {
 
 static inline uv_http_method_t get_method(Method method) {
   switch (method) {

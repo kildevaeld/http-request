@@ -1,15 +1,15 @@
 #include <fstream> // std::ofstream
-#include <httprequest/channels/uvchannel.hpp>
-#include <httprequest/client.hpp>
-#include <httprequest/iresponse-delegate.hpp>
-#include <httprequest/serializers.hpp>
+#include <httpxx-request/channels/uvchannel.hpp>
+#include <httpxx-request/client.hpp>
+#include <httpxx-request/iresponse-delegate.hpp>
+#include <httpxx-request/serializers.hpp>
 #include <iostream>
 
-using namespace httprequest;
+using namespace httpxx_request;
 
 int main() {
 
-  auto channel = std::make_shared<httprequest::UVChannel>(uv_default_loop());
+  auto channel = std::make_shared<UVChannel>(uv_default_loop());
 
   Client client(channel);
 

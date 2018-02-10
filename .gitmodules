@@ -7,3 +7,6 @@
 [submodule "vendor/uvhttp"]
 	path = vendor/uvhttp
 	url = git@github.com:kildevaeld/uvhttp
+[submodule "vendor/httpxx-types"]
+	path = vendor/httpxx-types
+	url = git@github.com:kildevaeld/httpxx-types.git

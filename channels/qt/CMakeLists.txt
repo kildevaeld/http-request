@@ -1,5 +1,5 @@
 
-qt5_wrap_cpp(MOCS ${PROJECT_ROOT}/include/httprequest/channels/qchannel.hpp reply.hpp)
+qt5_wrap_cpp(MOCS ${PROJECT_SOURCE_DIR}/include/httpxx-request/channels/qchannel.hpp reply.hpp)
 
 set(SOURCES
     qchannel.cpp

@@ -1,8 +1,8 @@
 #pragma once
 #include <QObject>
-#include <httprequest/channel.hpp>
+#include <httpxx-request/channel.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 namespace internal {
 class QChannelPrivate;

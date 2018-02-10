@@ -1,10 +1,10 @@
 #pragma once
-#include <httprequest/channel.hpp>
-#include <httprequest/reply.hpp>
-#include <httprequest/types.hpp>
+#include <httpxx-request/channel.hpp>
+#include <httpxx-request/types.hpp>
 #include <memory>
 
-namespace httprequest {
+
+namespace httpxx_request {
 
 class Client {
 

@@ -1,8 +1,8 @@
 #pragma once
 #include <QNetworkReply>
-#include <httprequest/channel.hpp>
+#include <httpxx-request/channel.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 class QtReply : public QObject {
 

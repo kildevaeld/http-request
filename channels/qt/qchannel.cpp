@@ -3,9 +3,9 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>
-#include <httprequest/channels/qchannel.hpp>
+#include <httpxx-request/channels/qchannel.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 namespace internal {
 class QChannelPrivate {

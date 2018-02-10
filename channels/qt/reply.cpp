@@ -1,6 +1,6 @@
 #include "reply.hpp"
 
-namespace httprequest {
+namespace httpxx_request {
 
 QtReply::QtReply(QNetworkReply *reply, IResponseDelegate *delegate)
     : QObject(), m_delegate(delegate), m_reply(reply) {

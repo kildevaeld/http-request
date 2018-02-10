@@ -1,8 +1,8 @@
-#include <httprequest/client.hpp>
-#include <httprequest/serializers.hpp>
+#include <httpxx-request/client.hpp>
+#include <httpxx-request/serializers.hpp>
 #include <iostream>
 
-namespace httprequest {
+namespace httpxx_request {
 
 Client::Client() {}
 

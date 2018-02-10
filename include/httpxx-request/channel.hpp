@@ -1,12 +1,11 @@
 #pragma once
 #include <functional>
-#include <httprequest/iresponse-delegate.hpp>
-#include <httprequest/types.hpp>
-#include <httpxx-parser/parser.hpp>
-#include <httpxx-parser/request.hpp>
+#include <httpxx-request/iresponse-delegate.hpp>
+#include <httpxx-request/types.hpp>
+#include <httpxx-types/request.hpp>
 #include <json.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 class Object {
 public:

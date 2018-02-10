@@ -5,6 +5,6 @@ set(SOURCES
     #iresponse-delegate.cpp
 )
 
-add_library(httprequest ${SOURCES})
-target_link_libraries(httprequest httpxx_parser)
-target_include_directories(httprequest PUBLIC ${PROJECT_ROOT}/include)
+add_library(httpxx_req ${SOURCES})
+target_link_libraries(httpxx_req httpxx_types)
+target_include_directories(httpxx_req PUBLIC ${PROJECT_ROOT}/include)

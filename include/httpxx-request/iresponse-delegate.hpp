@@ -1,7 +1,7 @@
 #pragma once
-#include <httprequest/types.hpp>
+#include <httpxx-request/types.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 template <typename T> class Serializer {
 

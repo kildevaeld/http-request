@@ -1,8 +1,8 @@
 #pragma once
-#include <httprequest/channel.hpp>
+#include <httpxx-request/channel.hpp>
 #include <uv.h>
 
-namespace httprequest {
+namespace httpxx_request {
 
 namespace internal {
 class UVChannelPrivate;

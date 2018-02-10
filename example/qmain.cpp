@@ -1,15 +1,16 @@
 #include <QCoreApplication>
-#include <httprequest/channels/qchannel.hpp>
-#include <httprequest/client.hpp>
-#include <httprequest/serializers.hpp>
+#include <httpxx-request/channels/qchannel.hpp>
+#include <httpxx-request/client.hpp>
+#include <httpxx-request/serializers.hpp>
 #include <iostream>
-using namespace httprequest;
+
+using namespace httpxx_request;
 
 int main(int argc, char **argv) {
 
   QCoreApplication app(argc, argv);
 
-  auto channel = std::make_shared<httprequest::QChannel>();
+  auto channel = std::make_shared<QChannel>();
 
   Client client(channel);
 

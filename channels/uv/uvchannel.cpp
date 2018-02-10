@@ -1,7 +1,7 @@
 #include "request.hpp"
-#include <httprequest/channels/uvchannel.hpp>
+#include <httpxx-request/channels/uvchannel.hpp>
 
-namespace httprequest {
+namespace httpxx_request {
 
 namespace internal {
 class UVChannelPrivate {
