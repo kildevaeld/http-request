@@ -20,7 +20,7 @@ public:
 
   virtual void request(Request &&req, IResponseDelegate *delegate) = 0;
   template <typename T> void deleteLater(T *ptr) {
-    async<T>([ptr](auto ptr) { delete ptr; }, ptr);
+    async<T>([ptr](T *ptr) { delete ptr; }, ptr);
   }
 
   template <typename T> void async(std::function<void(T *ptr)> fn, T *data) {
