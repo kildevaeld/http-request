@@ -55,4 +55,31 @@ private:
   std::string m_buffer;
 };
 
+#include <ostream>
+
+template <typename T> class StreamResponseDelegate : public IResponseDelegate {
+
+public:
+  StreamResponseDelegate(T &&stream, Callback<T> fn)
+      : m_stream(std::move(stream)), m_fn(std::move(fn)) {}
+
+  ~StreamResponseDelegate() {}
+
+  virtual void on_data(const unsigned char *data, size_t size) {
+    m_stream.write((const char *)data, size);
+  }
+
+  virtual void on_finished() {
+
+    m_stream.flush();
+
+    auto h = header();
+    m_fn(Response<T>(status(), std::move(h), std::move(m_stream)));
+  }
+
+private:
+  T m_stream;
+  Callback<T> m_fn;
+};
+
 } // namespace httprequest

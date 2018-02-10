@@ -1,5 +1,7 @@
+#include <fstream> // std::ofstream
 #include <httprequest/channels/uvchannel.hpp>
 #include <httprequest/client.hpp>
+#include <httprequest/iresponse-delegate.hpp>
 #include <httprequest/serializers.hpp>
 #include <iostream>
 
@@ -44,6 +46,16 @@ int main() {
   client.request<JSONSerializer>(
       Request(Method::Get, "http://localhost:4000/json"),
       [](const auto &k) { std::cout << k.content.dump() << std::endl; });
+
+  std::ofstream outfile("test.txt");
+
+  auto stream = new StreamResponseDelegate<std::ofstream>(
+      std::move(outfile), [](auto &&resp) {
+        std::cout << "done" << std::endl;
+        resp.content.close();
+      });
+
+  client.request(Request(Method::Get, "http://localhost:4000/json"), stream);
 
   return uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }
