@@ -44,18 +44,18 @@ public:
   virtual void on_data(const unsigned char *data, size_t size) {
     m_buffer.append((const char *)data, size);
   }
- 
+
   virtual void on_finished() {
     typename T::Type result;
     auto h = header();
 
-    if  (!m_serializer.decode(m_buffer, result)) {
-      m_fn(Response<typename T::Type>(status(), std::move(h), Error("serializer error")));
+    if (!m_serializer.decode(m_buffer, result)) {
+      m_fn(Response<typename T::Type>(status(), std::move(h),
+                                      Error("serializer error")));
     } else {
-      m_fn(Response<typename T::Type>(status(), std::move(h), std::move(result)));
-      
+      m_fn(Response<typename T::Type>(status(), std::move(h),
+                                      std::move(result)));
     }
-    
   }
 
   virtual void on_error(Error &&error) {
@@ -92,6 +92,7 @@ public:
 
   virtual void on_error(Error &&error) {
     m_fn(Response<T>(std::move(error)));
+    m_stream.close();
   }
 
 private:
@@ -99,4 +100,4 @@ private:
   Callback<T> m_fn;
 };
 
-} // namespace httprequest
+} // namespace httpxx_request
