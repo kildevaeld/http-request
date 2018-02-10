@@ -22,7 +22,7 @@ public:
   virtual void on_header(int status, Header &&header) {
     m_header = std::move(header);
   }
-  virtual void on_data(const char *data, size_t size) = 0;
+  virtual void on_data(const unsigned char *data, size_t size) = 0;
   virtual void on_finished() = 0;
 
 private:
@@ -38,8 +38,8 @@ public:
 
   ~ResponseDelegate() {}
 
-  virtual void on_data(const char *data, size_t size) {
-    m_buffer.append(data, size);
+  virtual void on_data(const unsigned char *data, size_t size) {
+    m_buffer.append((const char *)data, size);
   }
 
   virtual void on_finished() {

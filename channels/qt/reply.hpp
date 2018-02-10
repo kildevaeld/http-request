@@ -8,7 +8,7 @@ class QtReply : public QObject {
 
   Q_OBJECT
 public:
-  QtReply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb);
+  QtReply(QNetworkReply *reply, IResponseDelegate *delegate);
   ~QtReply() {}
 
 signals:
@@ -20,8 +20,8 @@ private slots:
 
 private:
   QNetworkReply *m_reply;
-  HeaderCallback m_hcb;
-  DataCallback m_dcb;
+  IResponseDelegate *m_delegate;
+
   bool m_first_read = true;
   // QByteArray m_bytes;
   // QBuffer m_buffer;

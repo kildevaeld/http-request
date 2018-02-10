@@ -22,7 +22,7 @@ public:
     header = other.header;
     status = other.status;
   }
-  ~Response() { printf("delete\n"); }
+  ~Response() {}
 
   T content;
   Header header;

@@ -38,8 +38,12 @@ int main() {
                    std::cout << "Coud" << resp.content << std::endl;
                  });*/
 
-  client.request(Request(Method::Get, "http://google.com"),
-                 [](const auto &k) { std::cout << "done" << std::endl; });
+  client.request(Request(Method::Get, "http://localhost:4000/"),
+                 [](const auto &k) { std::cout << k.content << std::endl; });
+
+  client.request<JSONSerializer>(
+      Request(Method::Get, "http://localhost:4000/json"),
+      [](const auto &k) { std::cout << k.content.dump() << std::endl; });
 
   return uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }

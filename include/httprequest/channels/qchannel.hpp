@@ -14,7 +14,7 @@ public:
   QChannel();
   virtual ~QChannel();
 
-  virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
+  virtual void request(Request &&req, IResponseDelegate *delegate);
   virtual void async(std::function<void(void *)> fn, void *data);
 
 private:

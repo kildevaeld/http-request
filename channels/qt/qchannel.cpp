@@ -21,7 +21,7 @@ QChannel::QChannel() : QObject(), d(new internal::QChannelPrivate) {
 
 QChannel::~QChannel() {}
 
-void QChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
+void QChannel::request(Request &&req, IResponseDelegate *delegate) {
   QUrl url(QString::fromStdString(req.url().str()));
   QNetworkRequest request(url);
 
@@ -44,6 +44,9 @@ void QChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
   case Method::Put:
     reply = d->man.put(request, QByteArray::fromStdString(req.body()));
     break;
+  case Method::Patch:
+    reply = d->man.patch(request, QByteArray::fromStdString(req.body()));
+    break;
   case Method::Delete:
     reply = d->man.deleteResource(request);
     break;
@@ -51,7 +54,7 @@ void QChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
     return;
   }
 
-  auto r = new QtReply(reply, std::move(hcb), std::move(dcb));
+  auto r = new QtReply(reply, delegate);
   connect(r, &QtReply::finished, r, &QtReply::deleteLater);
 }
 

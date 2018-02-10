@@ -2,12 +2,11 @@
 
 namespace httprequest {
 
-QtReply::QtReply(QNetworkReply *reply, HeaderCallback hcb, DataCallback dcb)
-    : QObject(), m_reply(reply), m_hcb(std::move(hcb)), m_dcb(std::move(dcb)) {
+QtReply::QtReply(QNetworkReply *reply, IResponseDelegate *delegate)
+    : QObject(), m_delegate(delegate) m_reply(reply) {
 
   connect(m_reply, &QNetworkReply::finished, this, &QtReply::onFinished);
   connect(m_reply, &QIODevice::readyRead, this, &QtReply::onReadyRead);
-
 }
 
 void QtReply::onReadyRead() {
@@ -20,17 +19,18 @@ void QtReply::onReadyRead() {
         m_reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
     m_first_read = false;
 
-    m_hcb(statusCode.toInt(), std::move(h));
+    m_delegate->on_header(statusCode.toInt(), std::move(h));
+    // m_hcb(statusCode.toInt(), std::move(h));
   }
 
   auto buffer = m_reply->readAll();
-
-  m_dcb((const unsigned char *)buffer.data(), buffer.size());
+  m_delegate->on_data((const unsigned char *)buffer.data(), buffer.size());
+  // m_dcb((const unsigned char *)buffer.data(), buffer.size());
 }
 void QtReply::onFinished() {
 
-  m_dcb(NULL, 0);
-
+  // m_dcb(NULL, 0);
+  m_delegate->on_finished();
   if (m_reply->error()) {
   } else {
   }
