@@ -5,7 +5,9 @@
 
 namespace httprequest {
 
-class TextSerializer : public Serializer<std::string> {
+namespace serializers {
+
+class Text : public Serializer<std::string> {
 
 public:
   virtual bool can(const std::string &mime) const {
@@ -18,7 +20,7 @@ public:
   }
 };
 
-class JSONSerializer : public Serializer<nlohmann::json> {
+class Json : public Serializer<nlohmann::json> {
 
 public:
   virtual bool can(const std::string &mime) const {
@@ -34,5 +36,7 @@ public:
     return true;
   }
 };
+
+} // namespace serializers
 
 } // namespace httprequest

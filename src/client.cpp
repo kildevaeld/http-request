@@ -14,7 +14,7 @@ void Client::request(Request req, IResponseDelegate *delegate) {
 }
 
 void Client::request(Request req, Callback<std::string> fn) {
-  request<TextSerializer>(std::move(req), std::move(fn));
+  request<serializers::Text>(std::move(req), std::move(fn));
 }
 
 } // namespace httprequest
