@@ -25,16 +25,6 @@ void UVChannel::request(Request &&req, IResponseDelegate *delegate) {
   });
 }
 
-/*void UVChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb)
-{
-
-  auto request =
-      new UVRequest(d->loop, std::move(req), std::move(hcb), std::move(dcb));
-  request->start([request, this]() {
-    this->async([request](auto) { delete request; }, NULL);
-  });
-}*/
-
 uv_loop_t *UVChannel::loop() const { return d->loop; }
 
 struct bag {
@@ -64,12 +54,5 @@ void UVChannel::async(std::function<void(void *)> fn, void *data) {
   uv_async_init(d->loop, async, async_cb);
   uv_async_send(async);
 }
-
-/*void UVChannel::deleteObject2(void *object) {
-  uv_async_t *async = new uv_async_t;
-  async->data = object;
-  uv_async_init(d->loop, async, async_cb);
-  uv_async_send(async);
-}*/
 
 } // namespace httprequest

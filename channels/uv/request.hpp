@@ -22,8 +22,6 @@ private:
   uv_loop_t *m_loop;
   Request m_req;
   std::unique_ptr<IResponseDelegate> m_delegate;
-  // HeaderCallback m_hcb;
-  // DataCallback m_dcb;
   http_client_t *m_client;
   http_request_t m_request;
   http_request_callbacks m_response_cbs;

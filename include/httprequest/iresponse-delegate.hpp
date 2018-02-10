@@ -3,29 +3,31 @@
 
 namespace httprequest {
 
-class IResponseDelegate {
-
-public:
-  virtual ~IResponseDelegate();
-
-  int status() const;
-  const Header header() const;
-
-  virtual void on_header(int status, Header &&header);
-  virtual void on_data(const char *data, size_t size) = 0;
-  virtual void on_finished() = 0;
-
-private:
-  Header m_header;
-  int m_status;
-};
-
 template <typename T> class Serializer {
 
 public:
   using Type = T;
   virtual bool can(const std::string &mime) const = 0;
   virtual bool decode(const std::string &, T &) const = 0;
+};
+
+class IResponseDelegate {
+
+public:
+  virtual ~IResponseDelegate() {}
+
+  int status() const { return m_status; }
+  Header &header() { return m_header; }
+
+  virtual void on_header(int status, Header &&header) {
+    m_header = std::move(header);
+  }
+  virtual void on_data(const char *data, size_t size) = 0;
+  virtual void on_finished() = 0;
+
+private:
+  Header m_header;
+  int m_status;
 };
 
 template <typename T> class ResponseDelegate : public IResponseDelegate {

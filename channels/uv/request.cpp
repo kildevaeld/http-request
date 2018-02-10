@@ -61,7 +61,6 @@ bool UVRequest::on_data(http_client_t *client, const char *data, size_t size) {
   UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
 
   req->m_delegate->on_data(data, size);
-  // req->m_dcb((const unsigned char *)data, size);
 
   return true;
 }
