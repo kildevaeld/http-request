@@ -1,5 +1,6 @@
 #include <httprequest/channels/uvchannel.hpp>
 #include <httprequest/client.hpp>
+#include <httprequest/serializers.hpp>
 #include <iostream>
 
 using namespace httprequest;
@@ -29,13 +30,16 @@ int main() {
 
   });*/
 
-  client.request(Request(Method::Get, "http://google.com"),
+  /*client.request(Request(Method::Get, "http://google.com"),
                  [](const auto &resp) {
                    for (const auto &kv : resp.header) {
                      std::cout << kv.first << " " << kv.second << "\n";
                    }
                    std::cout << "Coud" << resp.content << std::endl;
-                 });
+                 });*/
+
+  client.request(Request(Method::Get, "http://google.com"),
+                 [](const auto &k) { std::cout << "done" << std::endl; });
 
   return uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }

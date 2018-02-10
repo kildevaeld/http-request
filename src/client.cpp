@@ -23,11 +23,18 @@ void Client::json(Request req, Callback<nlohmann::json> fn) {
       });
 }
 
+void Client::request(Request req, IResponseDelegate *delegate) {
+  m_channel->request(std::move(req), delegate);
+}
+
 void Client::request(Request req, Callback<std::string> fn) {
+
+  request<TextSerializer>(std::move(req), std::move(fn));
+
   // auto resp = std::make_shared<Response<std::string>>();
 
-  m_channel->request(std::move(req),
-                     new ResponseDelegate<TextSerializer>(std::move(fn)));
+  /*m_channel->request(std::move(req),
+                     new ResponseDelegate<TextSerializer>(std::move(fn)));*/
   /*m_channel->request(
       std::move(req),
       [resp](auto status, const auto &&header) {
