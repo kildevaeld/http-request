@@ -18,14 +18,22 @@ UVChannel::UVChannel(uv_loop_t *loop)
 
 UVChannel::~UVChannel() {}
 
-void UVChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb) {
+void UVChannel::request(Request &&req, IResponseDelegate *delegate) {
+  auto request = new UVRequest(d->loop, std::move(req), delegate);
+  request->start([request, this]() {
+    this->async([request](auto) { delete request; }, NULL);
+  });
+}
+
+/*void UVChannel::request(Request &&req, HeaderCallback hcb, DataCallback dcb)
+{
 
   auto request =
       new UVRequest(d->loop, std::move(req), std::move(hcb), std::move(dcb));
   request->start([request, this]() {
     this->async([request](auto) { delete request; }, NULL);
   });
-}
+}*/
 
 uv_loop_t *UVChannel::loop() const { return d->loop; }
 

@@ -10,7 +10,7 @@ int main() {
 
   Client client(channel);
 
-  auto reply = client.request(Request(Method::Get, "http://google.com"));
+  /*auto reply = client.request(Request(Method::Get, "http://google.com"));
 
   reply->once<HeaderEvent>([](const auto &e, auto &) {
     for (auto h : e.header) {
@@ -24,13 +24,16 @@ int main() {
       [](const auto &, auto &) { std::cout << "Data" << std::endl; });
 
   reply->once<FinishEvent>([reply, channel](const auto &, auto &) {
-    reply->deleteLater();
+    // reply->deleteLater();
     std::cout << "finished" << std::endl;
 
-  });
+  });*/
 
   client.request(Request(Method::Get, "http://google.com"),
                  [](const auto &resp) {
+                   for (const auto &kv : resp.header) {
+                     std::cout << kv.first << " " << kv.second << "\n";
+                   }
                    std::cout << "Coud" << resp.content << std::endl;
                  });
 

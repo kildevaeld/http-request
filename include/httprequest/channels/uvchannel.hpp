@@ -14,7 +14,9 @@ public:
   UVChannel(uv_loop_t *loop = uv_default_loop());
   virtual ~UVChannel();
 
-  virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
+  // virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
+  virtual void request(Request &&req, IResponseDelegate *delegate);
+
   virtual void async(std::function<void(void *)> fn, void *data);
 
   uv_loop_t *loop() const;

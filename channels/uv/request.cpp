@@ -8,13 +8,22 @@ static inline uv_http_method_t get_method(Method method) {
     return HTTP_GET;
   case Method::Post:
     return HTTP_POST;
+  case Method::Delete:
+    return HTTP_DELETE;
+  case Method::Put:
+    return HTTP_PUT;
+  case Method::Patch:
+    return HTTP_PATCH;
+  case Method::Option:
+    return HTTP_OPTIONS;
+  case Method::Head:
+    return HTTP_HEAD;
   }
 }
 
-UVRequest::UVRequest(uv_loop_t *loop, Request &&req, HeaderCallback hcb,
-                     DataCallback dcb)
-    : m_loop(loop), m_req(std::move(req)), m_hcb(std::move(hcb)),
-      m_dcb(std::move(dcb)) {
+UVRequest::UVRequest(uv_loop_t *loop, Request &&req,
+                     IResponseDelegate *delegate)
+    : m_loop(loop), m_req(std::move(req)), m_delegate(delegate) {
 
   uv_http_request_init(&m_request, get_method(m_req.method()),
                        m_req.url().str().c_str());
@@ -51,7 +60,8 @@ void UVRequest::on_connect(http_client_t *client, int status) {
 bool UVRequest::on_data(http_client_t *client, const char *data, size_t size) {
   UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
 
-  req->m_dcb((const unsigned char *)data, size);
+  req->m_delegate->on_data(data, size);
+  // req->m_dcb((const unsigned char *)data, size);
 
   return true;
 }
@@ -62,14 +72,14 @@ bool UVRequest::on_headers(http_client_t *client, int status,
   Header h;
   uv_http_header_foreach(item, header) { h[item->field] = item->value; }
 
-  req->m_hcb(status, std::move(h));
+  req->m_delegate->on_header(status, std::move(h));
 
   return true;
 }
 
 void UVRequest::on_finished(http_client_t *client) {
   UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
-  req->m_dcb(NULL, 0);
+  req->m_delegate->on_finished();
   req->m_fn();
 }
 

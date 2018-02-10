@@ -1,14 +1,11 @@
 #pragma once
 #include <httprequest/channel.hpp>
 #include <httprequest/reply.hpp>
-#include <httprequest/response.hpp>
+#include <httprequest/types.hpp>
 
 #include <memory>
 
 namespace httprequest {
-
-template <typename T>
-using Callback = std::function<void(const Response<T> &resp)>;
 
 class Client {
 

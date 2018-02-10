@@ -1,14 +1,13 @@
 #pragma once
 #include <httprequest/channel.hpp>
-#include <uvhttp/client.h>
+#include <uvhttp/http.h>
 
 namespace httprequest {
 
 class UVRequest : public Object {
 
 public:
-  UVRequest(uv_loop_t *loop, Request &&req, HeaderCallback hcb,
-            DataCallback dcb);
+  UVRequest(uv_loop_t *loop, Request &&req, IResponseDelegate *delegat);
   virtual ~UVRequest();
 
   void start(std::function<void()> fn);
@@ -22,8 +21,9 @@ private:
 
   uv_loop_t *m_loop;
   Request m_req;
-  HeaderCallback m_hcb;
-  DataCallback m_dcb;
+  std::unique_ptr<IResponseDelegate> m_delegate;
+  // HeaderCallback m_hcb;
+  // DataCallback m_dcb;
   http_client_t *m_client;
   http_request_t m_request;
   http_request_callbacks m_response_cbs;

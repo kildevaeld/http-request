@@ -2,6 +2,7 @@
 set(SOURCES
     client.cpp
     reply.cpp
+    iresponse-delegate.cpp
 )
 
 add_library(httprequest ${SOURCES})
