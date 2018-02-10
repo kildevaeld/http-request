@@ -45,7 +45,9 @@ void QChannel::request(Request &&req, IResponseDelegate *delegate) {
     reply = d->man.put(request, QByteArray::fromStdString(req.body()));
     break;
   case Method::Patch:
-    reply = d->man.patch(request, QByteArray::fromStdString(req.body()));
+    reply = d->man.sendCustomRequest(request, "PATCH",
+                                     QByteArray::fromStdString(req.body()));
+    // reply = d->man.patch(request, QByteArray::fromStdString(req.body()));
     break;
   case Method::Delete:
     reply = d->man.deleteResource(request);

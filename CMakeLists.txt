@@ -25,8 +25,8 @@ add_subdirectory(src)
 
 ## Qt channel
 if (EHTTP_QT_CHANNEL OR EHTTP_EXAMPLE)
-    #find_package(Qt5Network)
-    #add_subdirectory(channels/qt)
+    find_package(Qt5Network)
+    add_subdirectory(channels/qt)
 endif(EHTTP_QT_CHANNEL OR EHTTP_EXAMPLE)
 
 ## Uv channel

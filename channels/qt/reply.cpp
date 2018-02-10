@@ -3,7 +3,7 @@
 namespace httprequest {
 
 QtReply::QtReply(QNetworkReply *reply, IResponseDelegate *delegate)
-    : QObject(), m_delegate(delegate) m_reply(reply) {
+    : QObject(), m_delegate(delegate), m_reply(reply) {
 
   connect(m_reply, &QNetworkReply::finished, this, &QtReply::onFinished);
   connect(m_reply, &QIODevice::readyRead, this, &QtReply::onReadyRead);
