@@ -1,6 +1,7 @@
 
 set(SOURCES
     client.cpp
+    request.cpp
     #reply.cpp
     #iresponse-delegate.cpp
 )

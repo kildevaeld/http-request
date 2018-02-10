@@ -55,4 +55,4 @@ void UVChannel::async(std::function<void(void *)> fn, void *data) {
   uv_async_send(async);
 }
 
-} // namespace httprequest
+} // namespace httpxx_request

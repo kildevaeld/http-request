@@ -18,6 +18,7 @@ private:
   static bool on_headers(http_client_t *client, int status,
                          uv_http_header_t *header);
   static void on_finished(http_client_t *client);
+  static void on_error(http_client_t *client, const char *name, const char *desc);
 
   uv_loop_t *m_loop;
   Request m_req;

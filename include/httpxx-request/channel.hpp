@@ -1,8 +1,8 @@
 #pragma once
 #include <functional>
 #include <httpxx-request/iresponse-delegate.hpp>
+#include <httpxx-request/request.hpp>
 #include <httpxx-request/types.hpp>
-#include <httpxx-types/request.hpp>
 #include <json.hpp>
 
 namespace httpxx_request {
@@ -33,4 +33,4 @@ public:
   virtual void async(std::function<void(void *)> fn, void *data) = 0;
 };
 
-} // namespace httprequest
+} // namespace httpxx_request

@@ -6,6 +6,7 @@
 #include <iostream>
 
 using namespace httpxx_request;
+using namespace httpxx_types;
 
 int main() {
 
@@ -41,11 +42,21 @@ int main() {
                  });*/
 
   client.request(Request(Method::Get, "http://localhost:4000/"),
-                 [](const auto &k) { std::cout << k.content << std::endl; });
+                 [](const auto &k) {
+                   if (!k.valid()) {
+                     std::cout << "error: " << k.error.what() << std::endl;
+                   }
+                   std::cout << k.content << std::endl;
+                 });
 
-  client.request<serializers::Json>(
+  /*client.request<serializers::Json>(
       Request(Method::Get, "http://localhost:4000/json"),
-      [](const auto &k) { std::cout << k.content.dump() << std::endl; });
+      [](const auto &k) {
+        if (!k) {
+          std::cout << "error: " << k.error.what() << std::endl;
+        }
+
+        std::cout << k.content.dump() << std::endl; });
 
   std::ofstream outfile("test.txt");
 
@@ -55,7 +66,7 @@ int main() {
         resp.content.close();
       });
 
-  client.request(Request(Method::Get, "http://localhost:4000/json"), stream);
+  client.request(Request(Method::Get, "http://localhost:4000/json"), stream);*/
 
   return uv_run(uv_default_loop(), UV_RUN_DEFAULT);
 }

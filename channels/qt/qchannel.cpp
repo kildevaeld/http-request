@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <httpxx-request/channels/qchannel.hpp>
 
+using httpxx_types::Method;
+
 namespace httpxx_request {
 
 namespace internal {
@@ -63,4 +65,4 @@ void QChannel::request(Request &&req, IResponseDelegate *delegate) {
 void QChannel::async(std::function<void(void *)> fn, void *data) {
   QTimer::singleShot(0, [ data, fn = std::move(fn) ]() { fn(data); });
 }
-} // namespace httprequest
+} // namespace httpxx_request

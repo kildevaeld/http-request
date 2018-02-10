@@ -5,6 +5,7 @@
 #include <iostream>
 
 using namespace httpxx_request;
+using namespace httpxx_types;
 
 int main(int argc, char **argv) {
 

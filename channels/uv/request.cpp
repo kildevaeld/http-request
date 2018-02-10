@@ -1,5 +1,7 @@
 #include "request.hpp"
 
+using httpxx_types::Method;
+
 namespace httpxx_request {
 
 static inline uv_http_method_t get_method(Method method) {
@@ -33,7 +35,8 @@ UVRequest::UVRequest(uv_loop_t *loop, Request &&req,
   m_response_cbs = {.on_connect = UVRequest::on_connect,
                     .on_headers = UVRequest::on_headers,
                     .on_finished = UVRequest::on_finished,
-                    .on_data = UVRequest::on_data};
+                    .on_data = UVRequest::on_data,
+                    .on_error = UVRequest::on_error};
 }
 UVRequest::~UVRequest() {
   if (m_request.headers)
@@ -82,4 +85,10 @@ void UVRequest::on_finished(http_client_t *client) {
   req->m_fn();
 }
 
-} // namespace httprequest
+void UVRequest::on_error(http_client_t *client, const char *name,
+                         const char *desc) {
+  UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
+  req->m_delegate->on_error(Error(name));
+}
+
+} // namespace httpxx_request

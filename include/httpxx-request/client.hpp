@@ -3,7 +3,6 @@
 #include <httpxx-request/types.hpp>
 #include <memory>
 
-
 namespace httpxx_request {
 
 class Client {
@@ -21,8 +20,13 @@ public:
   void request(Request req, IResponseDelegate *delegate);
   void request(Request req, Callback<std::string> fn);
 
+  template <typename T>
+  void get(const URL &url, Callback<typename T::Type> fn) {
+    request(Request(Method::Get, url), fn);
+  }
+
 private:
   std::shared_ptr<Channel> m_channel;
 };
 
-} // namespace httprequest
+} // namespace httpxx_request
