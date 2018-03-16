@@ -25,6 +25,7 @@ public:
     request(Request(Method::Get, url), fn);
   }
 
+
 private:
   std::shared_ptr<Channel> m_channel;
 };
