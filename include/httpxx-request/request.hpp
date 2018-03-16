@@ -1,6 +1,7 @@
 #pragma once
 #include <httpxx-request/types.hpp>
 #include <httpxx-types/url.hpp>
+#include <string>
 
 namespace httpxx_request {
 
