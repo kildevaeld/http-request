@@ -1,31 +1,31 @@
 #include "request.hpp"
-#include <httpxx-request/channels/uvchannel.hpp>
+#include <httpxx-request/channels/uvhttpchannel.hpp>
 
 namespace httpxx_request {
 
 namespace internal {
-class UVChannelPrivate {
+class UVHttpChannelPrivate {
 
 public:
-  UVChannelPrivate(uv_loop_t *l) : loop(l) {}
+  UVHttpChannelPrivate(uv_loop_t *l) : loop(l) {}
 
   uv_loop_t *loop = nullptr;
 };
 } // namespace internal
 
-UVChannel::UVChannel(uv_loop_t *loop)
-    : d(new internal::UVChannelPrivate(loop)) {}
+UVHttpChannel::UVHttpChannel(uv_loop_t *loop)
+    : d(new internal::UVHttpChannelPrivate(loop)) {}
 
-UVChannel::~UVChannel() {}
+UVHttpChannel::~UVHttpChannel() {}
 
-void UVChannel::request(Request &&req, IResponseDelegate *delegate) {
+void UVHttpChannel::request(Request &&req, IResponseDelegate *delegate) {
   auto request = new UVRequest(d->loop, std::move(req), delegate);
   request->start([request, this]() {
     this->async([request](auto) { delete request; }, NULL);
   });
 }
 
-uv_loop_t *UVChannel::loop() const { return d->loop; }
+uv_loop_t *UVHttpChannel::loop() const { return d->loop; }
 
 struct bag {
   std::function<void(void *)> fn;
@@ -43,7 +43,7 @@ static void async_cb(uv_async_t *async) {
   delete async;
 }
 
-void UVChannel::async(std::function<void(void *)> fn, void *data) {
+void UVHttpChannel::async(std::function<void(void *)> fn, void *data) {
   uv_async_t *async = new uv_async_t;
 
   auto b = new bag();

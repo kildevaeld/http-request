@@ -5,14 +5,14 @@
 namespace httpxx_request {
 
 namespace internal {
-class UVChannelPrivate;
+class UVHttpChannelPrivate;
 }
 
-class UVChannel : public Channel {
+class UVHttpChannel : public Channel {
 
 public:
-  UVChannel(uv_loop_t *loop = uv_default_loop());
-  virtual ~UVChannel();
+  UVHttpChannel(uv_loop_t *loop = uv_default_loop());
+  virtual ~UVHttpChannel();
 
   // virtual void request(Request &&req, HeaderCallback hcb, DataCallback dcb);
   virtual void request(Request &&req, IResponseDelegate *delegate);
@@ -22,7 +22,7 @@ public:
   uv_loop_t *loop() const;
 
 private:
-  std::unique_ptr<internal::UVChannelPrivate> d;
+  std::unique_ptr<internal::UVHttpChannelPrivate> d;
 };
 
 } // namespace httprequest

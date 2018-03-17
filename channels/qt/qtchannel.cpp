@@ -3,27 +3,27 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>
-#include <httpxx-request/channels/qchannel.hpp>
+#include <httpxx-request/channels/qtchannel.hpp>
 
 using httpxx_types::Method;
 
 namespace httpxx_request {
 
 namespace internal {
-class QChannelPrivate {
+class QtChannelPrivate {
 
 public:
   QNetworkAccessManager man;
 };
 } // namespace internal
 
-QChannel::QChannel() : QObject(), d(new internal::QChannelPrivate) {
+QtChannel::QtChannel() : QObject(), d(new internal::QtChannelPrivate) {
   // d->man.setStrictTransportSecurityEnabled(false);
 }
 
-QChannel::~QChannel() {}
+QtChannel::~QtChannel() {}
 
-void QChannel::request(Request &&req, IResponseDelegate *delegate) {
+void QtChannel::request(Request &&req, IResponseDelegate *delegate) {
   QUrl url(QString::fromStdString(req.url().str()));
   QNetworkRequest request(url);
 
@@ -62,7 +62,7 @@ void QChannel::request(Request &&req, IResponseDelegate *delegate) {
   connect(r, &QtReply::finished, r, &QtReply::deleteLater);
 }
 
-void QChannel::async(std::function<void(void *)> fn, void *data) {
+void QtChannel::async(std::function<void(void *)> fn, void *data) {
   QTimer::singleShot(0, [ data, fn = std::move(fn) ]() { fn(data); });
 }
 } // namespace httpxx_request

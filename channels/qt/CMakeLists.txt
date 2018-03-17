@@ -7,6 +7,6 @@ set(SOURCES
     ${MOCS}
 )
 
-add_library(qchannel ${SOURCES})
+add_library(httpxx_qtchannel ${SOURCES})
 
-target_link_libraries(qchannel Qt5::Network httpxx_request)
+target_link_libraries(httpxx_qtchannel Qt5::Network httpxx_request)
