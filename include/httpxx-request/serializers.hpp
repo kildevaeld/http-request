@@ -28,6 +28,7 @@ public:
   }
 
   virtual bool decode(const std::string &in, nlohmann::json &out) const {
+
     try {
       out = nlohmann::json::parse(in);
     } catch (...) {
@@ -39,4 +40,4 @@ public:
 
 } // namespace serializers
 
-} // namespace httprequest
+} // namespace httpxx_request

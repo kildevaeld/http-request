@@ -46,6 +46,7 @@ UVRequest::~UVRequest() {
 
 void UVRequest::start(std::function<void()> fn) {
   m_fn = std::move(fn);
+
   uv_http_request(m_client, &m_response_cbs);
 }
 
@@ -88,6 +89,7 @@ void UVRequest::on_finished(http_client_t *client) {
 void UVRequest::on_error(http_client_t *client, const char *name,
                          const char *desc) {
   UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
+
   req->m_delegate->on_error(Error(name));
 }
 
