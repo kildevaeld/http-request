@@ -22,6 +22,7 @@ public:
   Header &header() { return m_header; }
 
   virtual void on_header(int status, Header &&header) {
+    m_status = status;
     m_header = std::move(header);
   }
   virtual void on_data(const unsigned char *data, size_t size) = 0;
