@@ -41,8 +41,9 @@ int main() {
                    std::cout << "Coud" << resp.content << std::endl;
                  });*/
                  
-
-  client->request(Request(Method::Get, "http://localhost:5000"),
+  Request req(Method::Post, "http://localhost:5000/auth/login");
+  req.set_body("{\"email\":\"test@gmail.com\",\"password\":\"password\"}");
+  client->request(std::move(req),
                  [](const auto &k) {
                    if (!k.valid()) {
                      std::cout << "error: " << k.error.what() << std::endl;
