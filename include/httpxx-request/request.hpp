@@ -30,8 +30,9 @@ public:
 
   Request &set_header(const httpxx_types::Header &header);
   Request &set_header(httpxx_types::Header &&header);
-  Request &set_header(const std::string &field, const char *value);
+
   Request &set_header(const std::string &field, const std::string &value);
+  Request &set_header(const std::string &field, const char *value);
 
   /*template <typename Integer,
             typename = std::enable_if_t<std::is_integral<Integer>::value>>
