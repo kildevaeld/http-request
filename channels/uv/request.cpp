@@ -89,7 +89,6 @@ void UVRequest::on_finished(http_client_t *client) {
 void UVRequest::on_error(http_client_t *client, const char *name,
                          const char *desc) {
   UVRequest *req = static_cast<UVRequest *>(uv_http_get_data(client));
-
   req->m_delegate->on_error(Error(name));
 }
 
