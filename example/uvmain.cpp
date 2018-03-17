@@ -10,9 +10,9 @@ using namespace httpxx_types;
 
 int main() {
 
-  auto channel = std::make_shared<UVChannel>(uv_default_loop());
+  //auto channel = std::make_shared<UVChannel>(uv_default_loop());
 
-  Client client(channel);
+  auto client = Client::create<UVChannel>();
 
   /*auto reply = client.request(Request(Method::Get, "http://google.com"));
 
@@ -41,7 +41,7 @@ int main() {
                    std::cout << "Coud" << resp.content << std::endl;
                  });*/
 
-  client.request(Request(Method::Get, "http://localhost:4000/"),
+  client->request(Request(Method::Get, "http://localhost:4000/"),
                  [](const auto &k) {
                    if (!k.valid()) {
                      std::cout << "error: " << k.error.what() << std::endl;

@@ -4,10 +4,12 @@
 
 namespace httpxx_request {
 
-Client::Client() {}
+//Client::Client() {}
 
-Client::Client(std::shared_ptr<Channel> channel)
-    : m_channel(std::move(channel)) {}
+Client::Client(Channel *channel)
+    : m_channel(channel) {}
+  
+Client::~Client() {}
 
 void Client::request(Request req, IResponseDelegate *delegate) {
   m_channel->request(std::move(req), delegate);

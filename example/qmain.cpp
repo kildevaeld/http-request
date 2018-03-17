@@ -11,14 +11,12 @@ int main(int argc, char **argv) {
 
   QCoreApplication app(argc, argv);
 
-  auto channel = std::make_shared<QChannel>();
+  auto client = Client::create<QChannel>();
 
-  Client client(channel);
-
-  client.request(Request(Method::Get, "http://localhost:4000/"),
+  client->request(Request(Method::Get, "http://localhost:4000/"),
                  [](const auto &k) { std::cout << k.content << std::endl; });
 
-  client.request<serializers::Json>(
+  client->request<serializers::Json>(
       Request(Method::Get, "http://localhost:4000/json"),
       [](const auto &k) { std::cout << k.content.dump() << std::endl; });
 
