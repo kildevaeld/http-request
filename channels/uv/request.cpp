@@ -32,6 +32,8 @@ UVRequest::UVRequest(uv_loop_t *loop, Request &&req,
   m_client = uv_http_create(loop, &m_request);
   uv_http_set_data(m_client, this);
 
+  m_req.set_header("Host", m_req.url().host());
+
   m_response_cbs = {.on_connect = UVRequest::on_connect,
                     .on_headers = UVRequest::on_headers,
                     .on_finished = UVRequest::on_finished,
@@ -39,13 +41,16 @@ UVRequest::UVRequest(uv_loop_t *loop, Request &&req,
                     .on_error = UVRequest::on_error};
 }
 UVRequest::~UVRequest() {
-  if (m_request.headers)
-    uv_http_header_free(m_request.headers);
+  uv_http_request_free(&m_request);
   uv_http_free(m_client);
 }
 
 void UVRequest::start(std::function<void()> fn) {
   m_fn = std::move(fn);
+
+  for (auto &h : m_req.header()) {
+    uv_http_header_set(m_request.headers, h.first.c_str(), h.second.c_str());
+  }
 
   uv_http_request(m_client, &m_response_cbs);
 }
