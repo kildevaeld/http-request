@@ -8,4 +8,9 @@ set(SOURCES
 
 add_library(httpxx_req ${SOURCES})
 target_link_libraries(httpxx_req httpxx_types)
-target_include_directories(httpxx_req PUBLIC ${PROJECT_ROOT}/include)
+target_include_directories(httpxx_req 
+    PUBLIC 
+        ${PROJECT_ROOT}/include 
+        ${PROJECT_ROOT}/vendor/json/src
+        ${PROJECT_ROOT}/vendor/httpxx-types/include
+)

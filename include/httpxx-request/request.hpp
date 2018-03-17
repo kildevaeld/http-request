@@ -1,6 +1,7 @@
 #pragma once
 #include <httpxx-request/types.hpp>
 #include <httpxx-types/url.hpp>
+#include <string>
 
 namespace httpxx_request {
 
@@ -29,6 +30,7 @@ public:
 
   Request &set_header(const httpxx_types::Header &header);
   Request &set_header(httpxx_types::Header &&header);
+  Request &set_header(const std::string &field, const char *value);
   Request &set_header(const std::string &field, const std::string &value);
   Request &set_header(const std::string &field, const char *value);
 

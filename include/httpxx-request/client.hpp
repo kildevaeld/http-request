@@ -8,8 +8,11 @@ namespace httpxx_request {
 class Client {
 
 public:
-  Client();
-  Client(std::shared_ptr<Channel>);
+  //Client();
+  Client(Channel *);
+  ~Client();
+  Client(const Client &) = delete;
+  Client &operator=(const Client &) = delete;
 
   template <typename T>
   void request(Request req, Callback<typename T::Type> fn) {
@@ -25,8 +28,16 @@ public:
     request(Request(Method::Get, url), fn);
   }
 
+  template<typename T, typename ...Args>
+  static std::shared_ptr<Client> create(Args &&... a) {
+    T *channel = new T(std::forward<T>(a)...);
+    return std::make_shared<Client>(channel);
+  }
+
+
 private:
-  std::shared_ptr<Channel> m_channel;
+  
+  std::unique_ptr<Channel> m_channel;
 };
 
 } // namespace httpxx_request
