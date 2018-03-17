@@ -79,6 +79,11 @@ Request &Request::set_header(const std::string &field,
   return *this;
 }
 
+Request &Request::set_header(const std::string &field, const char *value) {
+  d->header[field] = value;
+  return *this;
+}
+
 Header Request::header() const { return d->header; }
 
 Request &Request::set_body(const std::string &body) {
