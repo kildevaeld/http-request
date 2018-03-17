@@ -14,9 +14,8 @@ public:
     return std::strncmp(mime.c_str(), "text", 4) == 0;
   }
 
-  virtual bool decode(const std::string &in, std::string &out) const {
+  virtual void decode(const std::string &in, std::string &out) const {
     out = in;
-    return true;
   }
 };
 
@@ -27,14 +26,12 @@ public:
     return std::strncmp(mime.c_str(), "application/json", 16) == 0;
   }
 
-  virtual bool decode(const std::string &in, nlohmann::json &out) const {
+  virtual void decode(const std::string &in, nlohmann::json &out) const {
 
     try {
       out = nlohmann::json::parse(in);
     } catch (...) {
-      return false;
     }
-    return true;
   }
 };
 

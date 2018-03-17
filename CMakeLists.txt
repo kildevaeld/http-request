@@ -17,9 +17,9 @@ add_subdirectory(vendor/json)
 ## Parser
 #include_directories(vendor/httpxx-parser/include)
 #add_subdirectory(vendor/httpxx-parser)
-include_directories(vendor/httpxx-types/include)
+#include_directories(vendor/httpxx-types/include)
 add_subdirectory(vendor/httpxx-types)
-
+#message(STATUS ${httpxx_types_LIBRARIES})
 ## Httprequest
 include_directories(${PROJECT_ROOT}/include)
 add_subdirectory(src)

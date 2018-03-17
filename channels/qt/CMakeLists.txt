@@ -9,4 +9,4 @@ set(SOURCES
 
 add_library(qchannel ${SOURCES})
 
-target_link_libraries(qchannel Qt5::Network)
+target_link_libraries(qchannel Qt5::Network httpxx_request)

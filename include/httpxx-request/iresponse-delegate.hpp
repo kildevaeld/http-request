@@ -10,7 +10,7 @@ template <typename T> class Serializer {
 public:
   using Type = T;
   virtual bool can(const std::string &mime) const = 0;
-  virtual bool decode(const std::string &, T &) const = 0;
+  virtual void decode(const std::string &, T &) const = 0;
 };
 
 class IResponseDelegate {
@@ -50,13 +50,26 @@ public:
     typename T::Type result;
     auto h = header();
 
-    if (!m_serializer.decode(m_buffer, result)) {
+    try {
+      m_serializer.decode(m_buffer, result);
+
+    } catch (const SerializeException &e) {
+      m_fn(Response<typename T::Type>(status(), std::move(h), Error(e.what())));
+      return;
+    } catch (...) {
+      m_fn(Response<typename T::Type>(status(), std::move(h),
+                                      Error("serializer error")));
+      return;
+    }
+
+    m_fn(Response<typename T::Type>(status(), std::move(h), std::move(result)));
+    /*if (!m_serializer.decode(m_buffer, result)) {
       m_fn(Response<typename T::Type>(status(), std::move(h),
                                       Error("serializer error")));
     } else {
       m_fn(Response<typename T::Type>(status(), std::move(h),
                                       std::move(result)));
-    }
+    }*/
   }
 
   virtual void on_error(Error &&error) {

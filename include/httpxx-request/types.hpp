@@ -25,6 +25,15 @@ private:
   std::string m_what;
 };
 
+class SerializeException : public std::exception {
+public:
+  SerializeException(const char *message) noexcept : m_what(message) {}
+  virtual const char *what() const noexcept { return m_what.c_str(); }
+
+private:
+  std::string m_what;
+};
+
 template <typename T> class Response {
 
 public:
