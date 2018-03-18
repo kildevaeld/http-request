@@ -1,5 +1,5 @@
 #include <fstream> // std::ofstream
-#include <httpxx-request/channels/uvchannel.hpp>
+#include <httpxx-request/channels/uvhttpchannel.hpp>
 #include <httpxx-request/client.hpp>
 #include <httpxx-request/iresponse-delegate.hpp>
 #include <httpxx-request/serializers.hpp>
@@ -10,9 +10,9 @@ using namespace httpxx_types;
 
 int main() {
 
-  //auto channel = std::make_shared<UVChannel>(uv_default_loop());
+  // auto channel = std::make_shared<UVChannel>(uv_default_loop());
 
-  auto client = Client::create<UVChannel>();
+  auto client = Client::create<UVHttpChannel>();
 
   /*auto reply = client.request(Request(Method::Get, "http://google.com"));
 
@@ -40,16 +40,15 @@ int main() {
                    }
                    std::cout << "Coud" << resp.content << std::endl;
                  });*/
-                 
+
   Request req(Method::Post, "http://localhost:5000/auth/login");
   req.set_body("{\"email\":\"test@gmail.com\",\"password\":\"password\"}");
-  client->request(std::move(req),
-                 [](const auto &k) {
-                   if (!k.valid()) {
-                     std::cout << "error: " << k.error.what() << std::endl;
-                   }
-                   std::cout << k.content << std::endl;
-                 });
+  client->request(std::move(req), [](const auto &k) {
+    if (!k.valid()) {
+      std::cout << "error: " << k.error.what() << std::endl;
+    }
+    std::cout << k.content << std::endl;
+  });
 
   /*client.request<serializers::Json>(
       Request(Method::Get, "http://localhost:4000/json"),
