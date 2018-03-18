@@ -43,13 +43,15 @@ public:
   Response(int s, Header &&h, T &&c)
       : content(std::move(c)), header(std::move(h)), status(s), m_valid(true) {}
   Response() {}
-  Response(Response &other)
-      : content(other.content), header(other.header), status(other.status) {}
+  // Response(Response &other)
+  //    : content(other.content), header(other.header), status(other.status) {}
   Response(Response &&other)
       : content(std::move(other.content)), header(std::move(other.header)),
         status(other.status), error(std::move(other.error)) {}
 
-  Response &operator=(const Response &other) {
+  Response(const Response &) = delete;
+  Response &operator=(const Response &) = delete;
+  /*Response &operator=(const Response &other) {
     if (&other != this) {
       content = other.content;
       header = other.header;
@@ -58,7 +60,7 @@ public:
       m_valid = other.m_valid;
     }
     return *this;
-  }
+  }*/
 
   Response &operator=(Response &&other) {
     if (&other != this) {

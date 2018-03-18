@@ -1,6 +1,7 @@
 #pragma once
 #include <cstring>
 #include <httpxx-request/iresponse-delegate.hpp>
+#include <httpxx-request/types.hpp>
 #include <json.hpp>
 
 namespace httpxx_request {
@@ -30,7 +31,8 @@ public:
 
     try {
       out = nlohmann::json::parse(in);
-    } catch (...) {
+    } catch (const nlohmann::json::exception &e) {
+      throw SerializeException(e.what());
     }
   }
 };
